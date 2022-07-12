@@ -1,0 +1,39 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true,
+		"node": true
+    },
+    "extends": [
+        "standard",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": 2020,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "svelte3",
+        "@typescript-eslint"
+    ],
+    "settings": {
+        "svelte3/typescript": true
+    },
+    "overrides": [
+        {
+            "files": ["*.svelte"],
+            "processor": "svelte3/svelte3",
+            "rules": {
+                "import/first": "off",
+                "no-multiple-empty-lines": "off",
+                "no-use-before-define": "off"
+            }
+        }
+    ],
+    "rules": {
+        "indent": ["warn", 4],
+        "brace-style": ["warn", "stroustrup"],
+        "space-before-function-paren": "off"
+    }
+}

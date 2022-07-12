@@ -1,0 +1,4 @@
+python-dotenv
+PySide6
+spleeter
+pycodestyle

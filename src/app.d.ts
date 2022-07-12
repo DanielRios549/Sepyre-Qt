@@ -4,19 +4,19 @@
 // for information about these interfaces
 // and what to do when importing types
 declare namespace App {
-	// interface Locals {}
-	// interface Platform {}
-	// interface Session {}
-	// interface Stuff {}
+    // interface Locals {}
+    // interface Platform {}
+    // interface Session {}
+    // interface Stuff {}
 }
 
 export declare global {
-	interface Window {
-		app: {
-			config: {
-				get: (section: string, option: string, defaultValue?: string) => Promise<string>
-				getAll: () => Promise<object>
-			}
-		}
-	}
+    interface Window {
+        app: {
+            config: {
+                get: (section: string, option: string, defaultValue?: string) => Promise<string>
+                getAll: () => Promise<object>
+            }
+        }
+    }
 }

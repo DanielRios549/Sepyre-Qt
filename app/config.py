@@ -59,7 +59,7 @@ class Config(app.qt.QObject):
             else:
                 return default
 
-    def update(self, section, key, value):
+    def update(self, section: str, key: str, value: str):
         configFile = str(self.file)
         parser = ConfigParser()
         parser.read(configFile)

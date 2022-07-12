@@ -1,0 +1,38 @@
+// $large: 1400;
+// $desktop: 1280;
+// $tablet: 750;
+// $mobile: 550;
+
+// TODO: Use SCSS variables in custom media queries
+
+// Apply for desktop both wide and ultra-wide
+
+@custom-media --desktop (width > 1280px);
+
+// Apply for desktop ultra-wide
+
+@custom-media --desktopLarge (width > 1400px);
+
+// Apply for desktop wide
+
+@custom-media --desktopSmall (1280px < width <= 1400px);
+
+//Apply for tablets
+
+@custom-media --tablet (750px < width <= 1280px);
+
+// Apply for both tablets and smartphones
+
+@custom-media --touch (width <= 1280px);
+
+// Apply for smartphones in both landscape and portrait modes
+
+@custom-media --mobile (width <= 750px);
+
+// Apply for smartphones in landscape mode only
+
+@custom-media --mobileLarge (550px < width <= 750px);
+
+// Apply for smartphones in portrait mode only
+
+@custom-media --mobileSmall (width <= 550px);

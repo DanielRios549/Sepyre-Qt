@@ -1,0 +1,23 @@
+body.light,
+body {
+    --primary: #eeeeee;
+    --secondary: #ffffff;
+    --color3: #e4e4e4;
+    --text: #313131;
+    --text2: #8D8592;
+    --icon: #313131;
+    --white: #eeeeee;
+    --highlight: #4E17E9;
+    --radius: 5px;
+}
+body.dark {
+    --primary: #202225;
+    --secondary: #36393F;
+    --color3: #2e3033;
+    --text: #D6D6D6;
+    --text2: #8D8592;
+    --icon: #D6D6D6;
+    --white: #eeeeee;
+    --highlight: #4E17E9;
+    --radius: 5px;
+}

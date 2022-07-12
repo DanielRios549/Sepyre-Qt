@@ -14,5 +14,18 @@
         "paths": {
             "$/*": ["src/*"]
         }
-	}
+	},
+    "include": [
+        "pages/**/*.svelte",
+        "src/**/*.ts",
+        "src/**/*.d.ts",
+        "src/**/*.svelte",
+        "**/*.test.ts"
+    ],
+    "exclude": [
+        ".svelte-kit",
+        ".venv",
+        "node_modules",
+        "build"
+    ]
 }

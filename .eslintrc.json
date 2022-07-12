@@ -32,8 +32,9 @@
         }
     ],
     "rules": {
-        "indent": ["warn", 4],
+        "indent": ["warn", 4,  { "ignoredNodes": ["VariableDeclaration[declarations.length=0]"] }],
         "brace-style": ["warn", "stroustrup"],
-        "space-before-function-paren": "off"
+        "space-before-function-paren": "off",
+        "no-explicit-any": "off"
     }
 }

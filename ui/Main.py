@@ -24,12 +24,14 @@ class MainWindow(app.qt.QMainWindow):
         else:
             raise Exception(f'Unknown environment configuration: {ENVIRONMENT}')
 
-        app.channels.Set(self.main, self.ui)
+        self.channels = app.channels.set(self.main, self.ui)
+        self.ui.page().setWebChannel(self.channels)
+
         app.menu.Main(self.main, self)
 
     def closeEvent(self, event):
         reply = app.qt.QMessageBox.question(
-            self, "Confirm", "Do want to close Holyrics?",
+            self, "Confirm", f"Do want to close {self.main.options['name']}?",
             app.qt.QMessageBox.Yes or app.qt.QMessageBox.No,
             app.qt.QMessageBox.No
         )

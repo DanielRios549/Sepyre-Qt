@@ -7,9 +7,10 @@ import app
 @dataclass()
 class Config(app.qt.QObject):
     main: Sepyre
+    window: app.qt.QWebEngineView
 
     def __post_init__(self):
-        super().__init__()
+        super().__init__(self.window)
 
     @app.qt.Slot(str, str, str, result=str)  # type: ignore
     @app.qt.Slot(str, str, result=str)       # type: ignore

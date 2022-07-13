@@ -1,7 +1,7 @@
 export type App = {
-    theme?: 'light' | 'dark'
+    theme: 'light' | 'dark'
 }
 
 export type Config = {
-    app?: App
+    app: App
 }

@@ -11,7 +11,11 @@
 		"skipLibCheck": true,
 		"sourceMap": true,
 		"strict": true,
+        "noImplicitThis": true,
+        "noImplicitAny": true,
         "paths": {
+            "$lib":["src/lib"],
+            "$lib/*":["src/lib/*"],
             "$/*": ["src/*"]
         }
 	},

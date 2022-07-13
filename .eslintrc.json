@@ -35,6 +35,6 @@
         "indent": ["warn", 4,  { "ignoredNodes": ["VariableDeclaration[declarations.length=0]"] }],
         "brace-style": ["warn", "stroustrup"],
         "space-before-function-paren": "off",
-        "no-explicit-any": "off"
+        "@typescript-eslint/no-explicit-any": "off"
     }
 }

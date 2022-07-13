@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from os import environ
 from sys import exit, argv
 from threading import Thread
@@ -9,16 +10,12 @@ load_dotenv()
 ENVIRONMENT = environ['ENVIRONMENT']
 
 
-class Sepyre(app.qt.QWebEngineView):
-    def __init__(self):
-        super().__init__()
+@dataclass()
+class Sepyre():
+    app: app.qt.QApplication
 
-        if ENVIRONMENT == 'production':
-            self.load(app.qt.QUrl('http://localhost:8000'))
-        elif ENVIRONMENT == 'development':
-            self.load(app.qt.QUrl('http://localhost:3000'))
-        else:
-            raise Exception(f'Unknown environment configuration: {ENVIRONMENT}')
+    def __post_init__(self):
+        self.page: app.qt.QMainWindow | app.qt.QWebEngineView
 
         self.options = {
             'name': environ['NAME'],
@@ -33,25 +30,17 @@ class Sepyre(app.qt.QWebEngineView):
         }
 
         self.config = app.config.Config(self)
-        self.config.defaultOptions()
 
-        self.channels()
-        self.loadUi()
+        # Define which to load next
 
-    # Setup Channels to communicate with Svelte Front-end
-    def channels(self):
-        self.channel = app.qt.QWebChannel()
+        if self.config.initialSettings is True:
+            # Load Initial Settings Window
+            self.page = app.ui.InitialWindow(self)
+        else:
+            # Load Main Interface
+            self.page = app.ui.MainWindow(self)
 
-        self.channel.registerObject('config', app.channels.config.Config(self))
-        self.page().setWebChannel(self.channel)
-
-    # Setup the MainWindow
-    def loadUi(self):
-        self.setWindowIcon(
-            app.qt.QIcon('public/favicon.png')
-        )
-
-        self.showMaximized()
+        self.page.loadUi()
 
 
 if __name__ == "__main__":
@@ -61,9 +50,8 @@ if __name__ == "__main__":
         svelte.start()
 
     # Init PySide application
-    core = app.qt.QApplication(argv)
-    view = Sepyre()
-    view.show()
+    application = app.qt.QApplication(argv)
+    Sepyre(application)
 
     # Run Application
-    exit(core.exec())
+    exit(application.exec())

@@ -1,3 +1,8 @@
-import { writable } from 'svelte/store'
+import { savable } from '$/lib/store'
+import type { Config } from '$/types/config'
 
-export const config = writable({})
+export const config = savable<Config>('config', {
+    app: {
+        theme: 'light'
+    }
+}, false)

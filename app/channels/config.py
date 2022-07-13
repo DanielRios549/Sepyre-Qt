@@ -9,7 +9,7 @@ class Config(app.qt.QObject):
     main: Sepyre
 
     def __post_init__(self):
-        super().__init__(self.main)
+        super().__init__()
 
     @app.qt.Slot(str, str, str, result=str)  # type: ignore
     @app.qt.Slot(str, str, result=str)       # type: ignore
@@ -20,3 +20,7 @@ class Config(app.qt.QObject):
     def getAll(self) -> str:
         configs = self.main.config.getAll()
         return json.dumps(configs)
+
+    @app.qt.Slot(str, str, str)
+    def set(self, section: str, key: str, value: str):
+        self.main.config.update(section, key, value)

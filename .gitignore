@@ -8,6 +8,7 @@ node_modules
 !.env.example
 
 .idea
+.vscode
 sample_code/data/**/
 sample_code/model
 .env

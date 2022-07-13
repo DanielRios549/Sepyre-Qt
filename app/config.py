@@ -2,15 +2,13 @@ from dataclasses import dataclass
 from pathlib import Path
 from configparser import ConfigParser
 from main import Sepyre
-import app
 
 
 @dataclass()
-class Config(app.qt.QObject):
+class Config():
     main: Sepyre
 
     def __post_init__(self):
-        super().__init__(self.main)
         userFolder = Path.home()
 
         self.folder = userFolder.joinpath(self.main.options['configFolder'])
@@ -28,8 +26,8 @@ class Config(app.qt.QObject):
             self.initialSettings = True
 
     def getWindowDimensions(self, reduction: int = 20) -> dict:
-        height = self.main.height() - (self.main.height() * reduction / 100)
-        width = self.main.width() - (self.main.width() * reduction / 100)
+        height = self.main.page.height() - (self.main.page.height() * reduction / 100)
+        width = self.main.page.width() - (self.main.page.width() * reduction / 100)
 
         return {'width': width, 'height': height}
 
@@ -71,6 +69,3 @@ class Config(app.qt.QObject):
 
         with open(configFile, 'w+') as config:
             parser.write(config)
-
-    def defaultOptions(self):
-        self.update('app', 'theme', 'dark')

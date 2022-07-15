@@ -48,5 +48,6 @@ class MainWindow(app.qt.QMainWindow):
             app.qt.QIcon('public/favicon.png')
         )
 
+        self.setWindowTitle(self.main.options['name'])
         self.setCentralWidget(self.ui)
         self.showMaximized()

@@ -1,5 +1,4 @@
-body#light,
-body {
+body#light {
     --color1: #eeeeee;
     --color2: #ffffff;
     --color3: #e4e4e4;
@@ -9,6 +8,7 @@ body {
     --white: #eeeeee;
     --highlight: #2cafec;
 }
+body,
 body#dark {
     --color1: #202225;
     --color2: #36393F;

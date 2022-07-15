@@ -3,7 +3,7 @@ import type { Config } from '$/types/config'
 
 export const defaults: Config = {
     app: {
-        theme: 'light'
+        theme: 'dark'
     }
 }
 

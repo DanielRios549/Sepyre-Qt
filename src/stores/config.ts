@@ -10,5 +10,8 @@ export const defaults: Config = {
 export const config = savable<Config>('config', 'set', null)
 
 export async function getConfig() {
-    config.set(JSON.parse(await window.app.config.getAll()))
+    const get = JSON.parse(await window.app.config.getAll())
+    const configs = Object.keys(get).length > 0 ? get : defaults
+
+    config.set(configs)
 }

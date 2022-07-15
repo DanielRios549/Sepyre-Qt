@@ -26,12 +26,13 @@ class Config(app.qt.QObject):
     def set(self, configs: str):
         config: dict = json.loads(configs)
 
-        for section, option in config.items():
-            for value in option.items():
-                current = self.main.config.get(section, value[0], 'light')
+        if config is not None:
+            for section, option in config.items():
+                for value in option.items():
+                    current = self.main.config.get(section, value[0], 'light')
 
-                print('current: ', current)
-                print('new: ', value[1])
+                    print('current: ', current)
+                    print('new: ', value[1])
 
-                if current != value[1]:
-                    self.main.config.update(section, value[0], value[1])
+                    if current != value[1]:
+                        self.main.config.update(section, value[0], value[1])

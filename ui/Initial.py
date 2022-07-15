@@ -11,7 +11,7 @@ class InitialWindow(app.qt.QWebEngineView):
         super().__init__()
 
         self.load(app.qt.QUrl('http://localhost:3000/initial'))
-        self.setWindowFlags(app.qt.Qt.FramelessWindowHint or app.qt.Qt.WindowStaysOnTopHint)
+        self.setWindowFlags(app.qt.Qt.FramelessWindowHint | app.qt.Qt.WindowStaysOnTopHint)
 
         self.channels = app.channels.set(self.main, self)
         self.page().setWebChannel(self.channels)
@@ -21,5 +21,6 @@ class InitialWindow(app.qt.QWebEngineView):
             app.qt.QIcon('public/favicon.png')
         )
 
+        self.setWindowTitle('Initital Settings')
         self.setFixedSize(800, 600)
         self.show()

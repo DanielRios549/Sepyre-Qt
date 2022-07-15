@@ -22,6 +22,16 @@ class Config(app.qt.QObject):
         configs = self.main.config.getAll()
         return json.dumps(configs)
 
-    @app.qt.Slot(str, str, str)
-    def set(self, section: str, key: str, value: str):
-        self.main.config.update(section, key, value)
+    @app.qt.Slot(str)
+    def set(self, configs: str):
+        config: dict = json.loads(configs)
+
+        for section, option in config.items():
+            for value in option.items():
+                current = self.main.config.get(section, value[0], 'light')
+
+                print('current: ', current)
+                print('new: ', value[1])
+
+                if current != value[1]:
+                    self.main.config.update(section, value[0], value[1])

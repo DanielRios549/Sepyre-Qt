@@ -11,7 +11,7 @@ export declare global {
     interface Window {
         app: {
             config: {
-                set: (self, section: str, key: str, value: str) => Promise<any>
+                set: (options: str) => Promise<void>
                 get: (section: string, option: string, defaultValue?: string) => Promise<string>
                 getAll: () => Promise<string>
             }

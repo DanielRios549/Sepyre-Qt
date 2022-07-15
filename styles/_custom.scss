@@ -1,3 +1,6 @@
+@custom-selector :--svg :global(svg);
+@custom-selector :--btn-hover :not(:disabled):hover;
+
 %center {
     display: flex;
     justify-content: center;

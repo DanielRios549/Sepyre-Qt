@@ -2,6 +2,16 @@
 @use "./themes";
 @use "./reset";
 
-#app {
+@font-face {
+    font-family: "OpenSans";
+    src: url("/fonts/OpenSans-Regular.ttf") format("woff2"),
+         url("/fonts/OpenSans-Medium.ttf") format("woff2"),
+         url("/fonts/OpenSans-MiduimItalic.ttf") format("woff2"),
+         url("/fonts/OpenSans-Italic.ttf") format("woff2"),
+         url("/fonts/OpenSans-Bold.ttf") format("woff2"),
+         url("/fonts/OpenSans-BoldItalic.ttf") format("woff2");
+}
 
+#app {
+    border: 1px solid red;
 }

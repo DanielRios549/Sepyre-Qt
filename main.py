@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from os import environ
+from os import environ, path
 from sys import exit, argv
 from threading import Thread
 from dotenv import load_dotenv
@@ -18,6 +18,8 @@ class Sepyre():
         self.page: app.qt.QMainWindow | app.qt.QWebEngineView
 
         self.options = {
+            'path': path.abspath(path.dirname(__file__)),
+            'env': ENVIRONMENT,
             'name': environ['NAME'],
             'charset': environ['CHARSET'],
             'version': environ['VERSION'],
@@ -28,6 +30,7 @@ class Sepyre():
             'configFile': environ['CONFIGFILE'],
             'themesFolder': environ['THEMESFOLDER']
         }
+        self.app.setApplicationName(self.options['name'])
 
         self.config = app.config.Config(self)
 
@@ -46,8 +49,13 @@ class Sepyre():
 if __name__ == "__main__":
     # Serve static files build using svelte
     if ENVIRONMENT == 'production':
-        svelte = Thread(target=app.svelte.serve, daemon=True)
-        svelte.start()
+        # svelte = Thread(target=app.svelte.serve, daemon=True)
+        # svelte.start()
+
+        # Register custom URL Scheme
+        scheme = app.qt.QWebEngineUrlScheme(b'ui')
+        scheme.setFlags(app.qt.QWebEngineUrlScheme.CorsEnabled)
+        app.qt.QWebEngineUrlScheme.registerScheme(scheme)
 
     # Init PySide application
     application = app.qt.QApplication(argv)

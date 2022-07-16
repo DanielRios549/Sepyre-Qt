@@ -1,12 +1,6 @@
 from dataclasses import dataclass
-from os import environ
-from dotenv import load_dotenv
 from main import Sepyre
 import app
-
-load_dotenv()
-
-ENVIRONMENT = environ['ENVIRONMENT']
 
 
 @dataclass()
@@ -16,13 +10,26 @@ class MainWindow(app.qt.QMainWindow):
     def __post_init__(self):
         super().__init__()
         self.ui = app.qt.QWebEngineView()
+        self.env = self.main.options['env']
+        self.path = self.main.options["path"]
 
-        if ENVIRONMENT == 'production':
-            self.ui.load(app.qt.QUrl('http://localhost:8000'))
-        elif ENVIRONMENT == 'development':
-            self.ui.load(app.qt.QUrl('http://localhost:3000'))
+        if self.env == 'production':
+            self.handler = app.ui.SchemeHandler(self.main)
+            self.ui.page().profile().installUrlSchemeHandler(
+                b'ui', self.handler
+            )
+
+            file = open(f'{self.path}/build/index.html', 'r')
+            html = file.read()
+            file.close()
+
+            self.ui.setHtml(html)
+
+        elif self.env == 'development':
+            self.ui.load('http://localhost:3000')
+
         else:
-            raise Exception(f'Unknown environment configuration: {ENVIRONMENT}')
+            raise Exception(f'Unknown environment configuration: {self.env}')
 
         self.channels = app.channels.set(self.main, self.ui)
         self.ui.page().setWebChannel(self.channels)

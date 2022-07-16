@@ -61,7 +61,7 @@
                 flex-direction: column;
                 gap: 50px;
 
-                &:--hover {
+                &:--btn-hover {
                     background-color: var(--color2);
                 }
                 :--svg {

@@ -7,7 +7,7 @@
 
     $: addBodyId = () => {
         if (browser && ready) {
-            document.body.id = $config.app.theme
+            document.body.id = $config?.app.theme
         }
     }
 

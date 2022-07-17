@@ -11,14 +11,9 @@ class MainWindow(app.qt.QMainWindow):
         super().__init__()
         self.ui = app.qt.QWebEngineView()
         self.env = self.main.options['env']
-        self.path = self.main.options["path"]
+        self.path = self.main.options['path']
 
         if self.env == 'production':
-            self.handler = app.ui.SchemeHandler(self.main)
-            self.ui.page().profile().installUrlSchemeHandler(
-                b'ui', self.handler
-            )
-
             file = open(f'{self.path}/build/index.html', 'r')
             html = file.read()
             file.close()
@@ -30,9 +25,6 @@ class MainWindow(app.qt.QMainWindow):
 
         else:
             raise Exception(f'Unknown environment configuration: {self.env}')
-
-        self.channels = app.channels.set(self.main, self.ui)
-        self.ui.page().setWebChannel(self.channels)
 
         app.menu.Main(self.main, self)
 

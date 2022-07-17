@@ -39,9 +39,19 @@ class Sepyre():
         if self.config.initialSettings is True:
             # Load Initial Settings Window
             self.page = app.ui.InitialWindow(self)
+            self.ui = self.page
         else:
             # Load Main Interface
             self.page = app.ui.MainWindow(self)
+            self.ui = self.page.ui
+
+        self.handler = app.ui.SchemeHandler(self)
+        self.ui.page().profile().installUrlSchemeHandler(
+            b'ui', self.handler
+        )
+
+        self.channels = app.channels.set(self, self.ui)
+        self.ui.page().setWebChannel(self.channels)
 
         self.page.loadUi()
 

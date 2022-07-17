@@ -15,7 +15,8 @@ class SchemeHandler(app.qt.QWebEngineUrlSchemeHandler):
     def requestStarted(self, request: app.qt.QWebEngineUrlRequestJob):
         method = request.requestMethod()
 
-        if method != b"GET":
+        if method != b'GET':
+            print(f"Method '{method}' not allowed")
             request.fail(app.qt.QWebEngineUrlRequestJob.RequestDenied)
 
             return
@@ -23,7 +24,7 @@ class SchemeHandler(app.qt.QWebEngineUrlSchemeHandler):
         url = request.requestUrl()
         path = url.path()
 
-        file = app.qt.QFile(f'{self.main.options["path"]}/build/' + path)
+        file = app.qt.QFile(f"{self.main.options['path']}/build" + path)
         file.setParent(request)
 
         request.destroyed.connect(file.deleteLater)
@@ -37,7 +38,5 @@ class SchemeHandler(app.qt.QWebEngineUrlSchemeHandler):
         type = app.qt.QMimeDatabase().mimeTypeForFile(
             app.qt.QFileInfo(file)
         )
-
-        # print(type.name().encode())
 
         request.reply(type.name().encode(), file)

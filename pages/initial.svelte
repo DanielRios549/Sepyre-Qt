@@ -8,10 +8,14 @@
     $: steps = 2
     $: step = 1
     $: first = step === 1
-    $: last = step === steps
+    $: last = step === steps ? 'Finish' : 'Next'
 
     const changeTheme = (theme: App['theme']) => {
         $config.app.theme = theme
+    }
+
+    const mainWindow = () => {
+        window.app.pages.mainWindow()
     }
 </script>
 
@@ -30,7 +34,7 @@
 </main>
 <footer>
     <button disabled={first} on:click={() => step--}>Previous</button>
-    <button disabled={last} on:click={() => step++}>Next</button>
+    <button on:click={() => last === 'Next' ? step++ : mainWindow()}>{last}</button>
 </footer>
 
 <style lang="postcss">

@@ -16,6 +16,7 @@ class Sepyre():
 
     def __post_init__(self):
         self.page: app.qt.QMainWindow | app.qt.QWebEngineView
+        self.ui: app.qt.QWebEngineView
 
         self.options = {
             'path': path.abspath(path.dirname(__file__)),
@@ -45,27 +46,32 @@ class Sepyre():
             self.page = app.ui.MainWindow(self)
             self.ui = self.page.ui
 
+        # Add Scheme to handle ui:/// URLs
         self.handler = app.ui.SchemeHandler(self)
         self.ui.page().profile().installUrlSchemeHandler(
             b'ui', self.handler
         )
 
+        self.setup()
+        self.page.loadUi()
+
+    # Add Channels to communicate with Svelte front-end
+    # Accesible through window.app object
+    def setup(self):
         self.channels = app.channels.set(self, self.ui)
         self.ui.page().setWebChannel(self.channels)
-
-        self.page.loadUi()
 
 
 if __name__ == "__main__":
     # Serve static files build using svelte
-    if ENVIRONMENT == 'production':
-        # svelte = Thread(target=app.svelte.serve, daemon=True)
-        # svelte.start()
+    # if ENVIRONMENT == 'production':
+    #     svelte = Thread(target=app.svelte.serve, daemon=True)
+    #     svelte.start()
 
-        # Register custom URL Scheme
-        scheme = app.qt.QWebEngineUrlScheme(b'ui')
-        scheme.setFlags(app.qt.QWebEngineUrlScheme.CorsEnabled)
-        app.qt.QWebEngineUrlScheme.registerScheme(scheme)
+    # Register custom URL Scheme
+    scheme = app.qt.QWebEngineUrlScheme(b'ui')
+    scheme.setFlags(app.qt.QWebEngineUrlScheme.CorsEnabled)
+    app.qt.QWebEngineUrlScheme.registerScheme(scheme)
 
     # Init PySide application
     application = app.qt.QApplication(argv)

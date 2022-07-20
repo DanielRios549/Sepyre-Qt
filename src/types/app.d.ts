@@ -14,6 +14,10 @@ export declare global {
                 set: (options: str) => Promise<void>
                 get: (section: string, option: string, defaultValue?: string) => Promise<string>
                 getAll: () => Promise<string>
+            },
+            pages: {
+                initialSettings: () => Promise<void>
+                mainWindow: () => Promise<void>
             }
         }
     }

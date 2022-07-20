@@ -1,15 +1,20 @@
 <script lang="ts">
     import { config } from '$/stores/config'
+    import Header from '$/layout/header.svelte'
+    import Aside from '$/layout/aside.svelte'
+    import Footer from '$/layout/footer.svelte'
 </script>
 
-<header>
-    <p>
-        Main Window
-    </p>
-</header>
+<Header/>
+<Aside/>
+<main>
+    <span>{$config.app.theme}</span>
+</main>
+<Footer/>
 
 <style lang="postcss">
-    p {
-        color: var(--text);
+    main {
+        grid-area: main;
+        height: 100vh;
     }
 </style>

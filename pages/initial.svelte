@@ -29,7 +29,9 @@
         </button>
     </section>
     <section class:hide={step !== 2}>
-        123
+        <p>
+            You are ready to go
+        </p>
     </section>
 </main>
 <footer>
@@ -50,17 +52,21 @@
         gap: $space;
 
         section {
-            display: flex;
+            @extend %center;
             height: 100%;
 
             &.hide {
                 display: none;
+            }
+            p {
+                font-size: 3rem;
             }
             button {
                 @extend %center;
                 background-color: var(--color1);
                 cursor: pointer;
                 width: 100%;
+                height: 100%;
                 font-size: 1.8rem;
                 flex-direction: column;
                 gap: 50px;

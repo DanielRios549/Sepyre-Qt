@@ -1,12 +1,11 @@
 <script lang="ts">
-    import { config } from '$/stores/config'
     import Layout from '$/layout/__main.svelte'
 </script>
 
 <Layout>
-    <span>{$config.app.theme}</span>
+    <span>Coming Soon...</span>
 </Layout>
 
 <style lang="postcss">
-    
+
 </style>

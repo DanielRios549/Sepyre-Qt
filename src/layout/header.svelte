@@ -7,6 +7,6 @@
 <style lang="postcss">
     header {
         grid-area: header;
-        background-color: var(--color2);
+        background-color: var(--color1);
     }
 </style>

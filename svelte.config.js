@@ -1,6 +1,5 @@
 import adapter from '@sveltejs/adapter-static'
 import preprocess from 'svelte-preprocess'
-import PostSCSS from 'postcss-scss'
 import Import from 'postcss-import'
 import AutoPrefixer from 'autoprefixer'
 import Nested from 'postcss-nested'
@@ -20,7 +19,6 @@ const config = {
             prependData: `@use "${prepend}";`
         },
         postcss: {
-            parser: PostSCSS.parse,
             prependData: `@import "${prepend}";`,
             plugins: [
                 AutoPrefixer(), Nested(),

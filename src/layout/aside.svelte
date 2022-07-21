@@ -17,6 +17,7 @@
             {/each}
         </ul>
     </nav>
+    <slot/>
 </aside>
 
 <style lang="scss">
@@ -39,6 +40,7 @@
                     &:not(.active) {
                         a:hover {
                             background-color: var(--color2);
+                            color: var(--text);
                         }
                     }
                     &.active {

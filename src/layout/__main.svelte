@@ -4,12 +4,18 @@
     import Footer from '$/layout/footer.svelte'
 </script>
 
-<Header/>
-<Aside/>
+<Header>
+    <slot name="header"/>
+</Header>
+<Aside>
+    <slot name="aside"/>
+</Aside>
     <main>
         <slot/>
     </main>
-<Footer/>
+<Footer>
+    <slot name="footer"/>
+</Footer>
 
 <style lang="postcss">
     :--body {

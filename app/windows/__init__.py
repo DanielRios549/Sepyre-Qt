@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from main import Sepyre
-from ui.Main import MainWindow
-from ui.Initial import InitialWindow
+from app.windows.Main import Main
+from app.windows.Initial import Initial
 import app
 
 

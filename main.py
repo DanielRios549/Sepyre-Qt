@@ -39,15 +39,15 @@ class Sepyre():
 
         if self.config.initialSettings is True:
             # Load Initial Settings Window
-            self.page = app.ui.InitialWindow(self)
+            self.page = app.windows.Initial(self)
             self.ui = self.page
         else:
             # Load Main Interface
-            self.page = app.ui.MainWindow(self)
+            self.page = app.windows.Main(self)
             self.ui = self.page.ui
 
         # Add Scheme to handle ui:/// URLs
-        self.handler = app.ui.SchemeHandler(self)
+        self.handler = app.windows.SchemeHandler(self)
         self.ui.page().profile().installUrlSchemeHandler(
             b'ui', self.handler
         )

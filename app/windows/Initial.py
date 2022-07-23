@@ -4,7 +4,7 @@ import app
 
 
 @dataclass()
-class InitialWindow(app.qt.QWebEngineView):
+class Initial(app.qt.QWebEngineView):
     main: Sepyre
 
     def __post_init__(self):

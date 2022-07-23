@@ -7,7 +7,9 @@ from main import Sepyre
 # Setup Channels to communicate with Svelte Front-end
 def set(main: Sepyre, window: QWebEngineView):
     channels = QWebChannel()
-    channels.registerObject('config', Config(main, window))
-    channels.registerObject('pages', Pages(main, window))
+    channels.registerObjects({
+        'config': Config(main, window),
+        'pages': Pages(main, window)
+    })
 
     return channels

@@ -4,7 +4,7 @@ import app
 
 
 @dataclass()
-class MainWindow(app.qt.QMainWindow):
+class Main(app.qt.QMainWindow):
     main: Sepyre
 
     def __post_init__(self):

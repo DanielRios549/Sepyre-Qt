@@ -14,7 +14,7 @@ class Pages(app.qt.QObject):
     @app.qt.Slot()
     def mainWindow(self):
         self.main.page.close()
-        self.main.page = app.ui.MainWindow(self.main)
+        self.main.page = app.windows.Main(self.main)
         self.main.ui = self.main.page.ui
 
         self.main.setup()

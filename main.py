@@ -72,17 +72,12 @@ class Sepyre():
         self.key_f12 = app.qt.QShortcut(app.qt.QKeySequence(app.qt.Qt.Key_F12), self.page)
         self.key_f12.activated.connect(self.showDevTools)   # type: ignore
 
-        # Create Splitter to show inpector
-        self.box = app.qt.QHBoxLayout(self.page)
-
+        # Create a Splitter to allow inpector side by side
         self.splitter = app.qt.QSplitter(app.qt.Qt.Horizontal)
         self.splitter.addWidget(self.ui)
 
-        self.box.addWidget(self.splitter)
-        self.page.setLayout(self.box)
-
         # Add Channels to communicate with Svelte front-end
-        # Accesible through window.app object
+        # Accessible through window.app object
         self.channels = app.channels.set(self, self.ui)
         self.ui.page().setWebChannel(self.channels)
 

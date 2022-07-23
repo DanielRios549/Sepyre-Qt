@@ -15,7 +15,7 @@ class Sepyre():
     app: app.qt.QApplication
 
     def __post_init__(self):
-        self.page: app.qt.QMainWindow | app.qt.QWebEngineView
+        self.page: app.qt.QMainWindow
         self.ui: app.qt.QWebEngineView
 
         self.options = {
@@ -31,20 +31,18 @@ class Sepyre():
             'configFile': environ['CONFIGFILE'],
             'themesFolder': environ['THEMESFOLDER']
         }
-        self.app.setApplicationName(self.options['name'])
 
         self.config = app.config.Config(self)
 
-        # Define which to load next
-
+        # Load Initial Settings Window
         if self.config.initialSettings is True:
-            # Load Initial Settings Window
             self.page = app.windows.Initial(self)
-            self.ui = self.page
+
+        # Load Main Interface
         else:
-            # Load Main Interface
             self.page = app.windows.Main(self)
-            self.ui = self.page.ui
+
+        self.ui = self.page.ui
 
         # Add Scheme to handle ui:/// URLs
         self.handler = app.windows.SchemeHandler(self)
@@ -52,14 +50,46 @@ class Sepyre():
             b'ui', self.handler
         )
 
+        self.inspector = app.qt.QWebEngineView()
         self.setup()
         self.page.loadUi()
 
-    # Add Channels to communicate with Svelte front-end
-    # Accesible through window.app object
+    def showDevTools(self):
+        # Show if is hidden
+        if self.splitter.count() == 1:
+            self.inspector.page().setInspectedPage(self.ui.page())
+            self.splitter.addWidget(self.inspector)
+
+        # Close if is opened
+        else:
+            self.inspector.page().setInspectedPage(None)    # type: ignore
+            self.inspector.setParent(None)                  # type: ignore
+
     def setup(self):
+        #  Add Shortcut Keys
+        self.key_f5 = app.qt.QShortcut(app.qt.QKeySequence(app.qt.Qt.Key_F5), self.page)
+        self.key_f5.activated.connect(self.ui.reload)       # type: ignore
+        self.key_f12 = app.qt.QShortcut(app.qt.QKeySequence(app.qt.Qt.Key_F12), self.page)
+        self.key_f12.activated.connect(self.showDevTools)   # type: ignore
+
+        # Create Splitter to show inpector
+        self.box = app.qt.QHBoxLayout(self.page)
+
+        self.splitter = app.qt.QSplitter(app.qt.Qt.Horizontal)
+        self.splitter.addWidget(self.ui)
+
+        self.box.addWidget(self.splitter)
+        self.page.setLayout(self.box)
+
+        # Add Channels to communicate with Svelte front-end
+        # Accesible through window.app object
         self.channels = app.channels.set(self, self.ui)
         self.ui.page().setWebChannel(self.channels)
+
+        self.page.setCentralWidget(self.splitter)
+
+        # General Applications options
+        self.app.setApplicationName(self.options['name'])
 
 
 if __name__ == "__main__":

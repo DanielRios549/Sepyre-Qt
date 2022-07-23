@@ -48,5 +48,4 @@ class Main(app.qt.QMainWindow):
         )
 
         self.setWindowTitle(self.main.options['name'])
-        self.setCentralWidget(self.ui)
         self.showMaximized()

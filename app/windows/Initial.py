@@ -4,11 +4,12 @@ import app
 
 
 @dataclass()
-class Initial(app.qt.QWebEngineView):
+class Initial(app.qt.QMainWindow):
     main: Sepyre
 
     def __post_init__(self):
         super().__init__()
+        self.ui = app.qt.QWebEngineView()
         self.env = self.main.options['env']
         self.path = self.main.options['path']
 
@@ -17,10 +18,10 @@ class Initial(app.qt.QWebEngineView):
             html = file.read()
             file.close()
 
-            self.setHtml(html)
+            self.ui.setHtml(html)
 
         elif self.env == 'development':
-            self.load('http://localhost:3000/initial')
+            self.ui.load('http://localhost:3000/initial')
 
         else:
             raise Exception(f'Unknown environment configuration: {self.env}')

@@ -33,5 +33,6 @@
     main {
         grid-area: main;
         height: 100vh;
+        padding: 10px;
     }
 </style>

@@ -17,8 +17,8 @@
 	"devDependencies": {
 		"@jest/types": "^28.1.1",
 		"@poppanator/sveltekit-svg": "^0.3.4",
-		"@sveltejs/adapter-static": "^1.0.0-next.35",
-		"@sveltejs/kit": "next",
+		"@sveltejs/adapter-static": "^1.0.0-next.38",
+		"@sveltejs/kit": "^1.0.0-next.395",
 		"@testing-library/svelte": "^3.1.3",
 		"@testing-library/user-event": "^14.2.1",
 		"@types/jest": "^28.1.4",
@@ -46,12 +46,14 @@
 		"sass": "^1.53.0",
 		"svelte": "^3.44.0",
 		"svelte-check": "^2.7.1",
+		"svelte-forms-lib": "^2.0.1",
 		"svelte-preprocess": "^4.10.6",
 		"testing-library": "^0.0.2",
 		"ts-jest": "^28.0.5",
 		"ts-node": "^10.8.2",
 		"tslib": "^2.3.1",
 		"typescript": "^4.7.4",
-		"vite": "^3.0.2"
+		"vite": "^3.0.2",
+		"yup": "^0.32.11"
 	}
 }

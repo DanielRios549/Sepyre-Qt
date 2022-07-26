@@ -20,7 +20,7 @@
     <slot/>
 </aside>
 
-<style lang="scss">
+<style lang="postcss">
     aside {
         grid-area: aside;
         background-color: var(--color1);

@@ -18,6 +18,10 @@ export declare global {
             pages: {
                 initialSettings: () => Promise<void>
                 mainWindow: () => Promise<void>
+            },
+            functions: {
+                copy: (file: any) => Promise<void>
+                getFiles: () => Promise<string[]>
             }
         }
     }

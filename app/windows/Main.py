@@ -18,7 +18,7 @@ class Main(app.qt.QMainWindow):
             html = file.read()
             file.close()
 
-            self.ui.setHtml(html)
+            self.ui.setHtml(html, 'ui:///index.html')
 
         elif self.env == 'development':
             self.ui.load('http://localhost:3000')

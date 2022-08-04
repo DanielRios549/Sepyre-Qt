@@ -13,8 +13,8 @@
         {:else}
             <ul>
                 {#each items as item}
-                    {@const link = item.toLowerCase().replaceAll(' ', '-')}
-                    <li><a href="/mixer/{link}">{item}</a></li>
+                    {@const name = item.replaceAll('-', ' ')}
+                    <li><a href="/mixer/{item}">{name}</a></li>
                 {/each}
             </ul>
         {/if}

@@ -32,6 +32,13 @@ class Functions(app.qt.QObject):
 
         return separations
 
+    @app.qt.Slot(str, result=str)  # type: ignore
+    def getInfo(self, name: str) -> str:
+        file = self.main.config.folder.joinpath('separation').joinpath(name).joinpath('info.conf')
+        info = app.utils.parser.config(str(file), True)
+
+        return json.dumps(info)
+
     @app.qt.Slot(str)
     def copy(self, file: str):
         # separator = spleeter.Separator('spleeter:5stems')

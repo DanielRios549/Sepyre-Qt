@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from configparser import ConfigParser
 from main import Sepyre
+import app
 
 
 @dataclass()
@@ -32,19 +33,7 @@ class Config():
         return {'width': width, 'height': height}
 
     def getAll(self) -> dict:
-        file = str(self.file)
-        parser = ConfigParser()
-        parser.read(file)
-
-        configs: dict = {}
-
-        for section in parser.sections():
-            configs[section] = {}
-
-            for option, value in parser.items(section):
-                configs[section][option] = value
-
-        return configs
+        return app.utils.parser.config(str(self.file))
 
     def get(self, section: str, config: str, default: str) -> str:
         if section == 'env':

@@ -2,16 +2,19 @@
     import { page } from '$app/stores'
     import Layout from '$/layout/__main.svelte'
 
-    const name = $page.url.pathname.split('/').at(-1) || ''
+    const path = $page.url.pathname.split('/').at(-1) || ''
 </script>
 
 <Layout>
-    {#if name !== ''}
-        {#await window.app.functions.getInfo(name)}
+    {#if path !== ''}
+        {#await window.app.functions.getInfo(path)}
             <span>Loading</span>
         {:then info}
             {@const { name } = JSON.parse(info)}
-            <span>{name}</span>
+            <h1>{name}</h1>
+            <audio controls>
+                <source src="audio:///{path}/drums.wav">
+            </audio>
         {/await}
     {/if}
 </Layout>

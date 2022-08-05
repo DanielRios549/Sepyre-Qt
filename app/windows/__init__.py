@@ -8,9 +8,15 @@ import app
 @dataclass()
 class SchemeHandler(app.qt.QWebEngineUrlSchemeHandler):
     main: Sepyre
+    folder: str
 
     def __post_init__(self):
         super().__init__()
+
+        self.folders = {
+            'ui': f'{self.main.options["path"]}/build',
+            'audio': f'{self.main.config.folder}/separation'
+        }
 
     def requestStarted(self, request: app.qt.QWebEngineUrlRequestJob):
         method = request.requestMethod()
@@ -24,7 +30,7 @@ class SchemeHandler(app.qt.QWebEngineUrlSchemeHandler):
         url = request.requestUrl()
         path = url.path()
 
-        file = app.qt.QFile(f"{self.main.options['path']}/build" + path)
+        file = app.qt.QFile(f'{self.folders[self.folder]}/{path}')
         file.setParent(request)
 
         request.destroyed.connect(file.deleteLater)

@@ -45,9 +45,15 @@ class Sepyre():
         self.ui = self.page.ui
 
         # Add Scheme to handle ui:/// URLs
-        self.handler = app.windows.SchemeHandler(self)
+        self.handler_ui = app.windows.SchemeHandler(self, 'ui')
         self.ui.page().profile().installUrlSchemeHandler(
-            b'ui', self.handler
+            b'ui', self.handler_ui
+        )
+
+        # Add Scheme to handle audio:/// URLs
+        self.handler_audio = app.windows.SchemeHandler(self, 'audio')
+        self.ui.page().profile().installUrlSchemeHandler(
+            b'audio', self.handler_audio
         )
 
         self.inspector = app.qt.QWebEngineView()
@@ -66,7 +72,7 @@ class Sepyre():
             self.inspector.setParent(None)                  # type: ignore
 
     def setup(self):
-        #  Add Shortcut Keys
+        # Add Shortcut Keys
         self.key_f5 = app.qt.QShortcut(app.qt.QKeySequence(app.qt.Qt.Key_F5), self.page)
         self.key_f5.activated.connect(self.ui.reload)       # type: ignore
         self.key_f12 = app.qt.QShortcut(app.qt.QKeySequence(app.qt.Qt.Key_F12), self.page)
@@ -93,10 +99,14 @@ if __name__ == "__main__":
     #     svelte = Thread(target=app.svelte.serve, daemon=True)
     #     svelte.start()
 
-    # Register custom URL Scheme
-    scheme = app.qt.QWebEngineUrlScheme(b'ui')
-    scheme.setFlags(app.qt.QWebEngineUrlScheme.CorsEnabled)
-    app.qt.QWebEngineUrlScheme.registerScheme(scheme)
+    # URL Scheme for UI files
+    ui = app.qt.QWebEngineUrlScheme(b'ui')
+    ui.setFlags(app.qt.QWebEngineUrlScheme.CorsEnabled)
+    app.qt.QWebEngineUrlScheme.registerScheme(ui)
+
+    # URL Scheme for audio files
+    audio = app.qt.QWebEngineUrlScheme(b'audio')
+    app.qt.QWebEngineUrlScheme.registerScheme(audio)
 
     # Init PySide application
     application = app.qt.QApplication(argv)

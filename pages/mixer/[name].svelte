@@ -5,21 +5,23 @@
     import Play from '$/icons/play.svg'
     import Pause from '$/icons/pause.svg'
 
+    const path = $page.url.pathname.split('/').at(-1) || ''
+
     const parts = [
         ['vocals', '#00c9e4'],
-        ['drums', '#00dae8'],
-        ['bass', '#63fb97'],
+        ['drums', '#63fb97'],
+        ['bass', '#00dae8'],
         ['piano', '#31eac0'],
         ['other', '#00b4cc']
     ]
 
-    $: length = 0
+    $: range = 0
+    $: current = 0
+
     $: paused = true
     $: icon = paused ? Play : Pause
     $: time = '0:00'
     $: total = '0:00'
-
-    const path = $page.url.pathname.split('/').at(-1) || ''
 
     const PlayPause = () => {
         paused = !paused
@@ -27,14 +29,27 @@
 
     const setTotalTime = (event: any) => {
         if (total === '0:00') {
-            const seconds = event.target.duration || 0
-            total = calculateTime(seconds)
-            length = seconds
+            range = event.target.duration || 0
+            total = calculateTime(range)
         }
     }
 
     const setSeekTime = (event: any) => {
-        console.log(event.target.value)
+        const parts = document.getElementsByTagName('audio')
+
+        Array.prototype.slice.call(parts).forEach((audio) => {
+            audio.currentTime = event.target.value
+        })
+
+        current = event.target.value || 0
+        time = calculateTime(current)
+    }
+
+    const updateTime = (event: any) => {
+        current = event.target.currentTime || 0
+        time = calculateTime(current)
+
+        console.log('Time updated...')
     }
 </script>
 
@@ -57,20 +72,39 @@
                 <span>{total}</span>
             </section>
             <section id="mixer">
-                <input type="range" name="progress" id="progress" max={length} value="0" on:input={setSeekTime}/>
-                {#each parts as [part, color]}
+                <input
+                    type="range"
+                    name="progress"
+                    id="progress"
+                    max={range}
+                    bind:value={current}
+                    on:input={setSeekTime}
+                />
+                {#each parts as [part, color], index}
                     {@const audio = `audio:///${path}/${part}.wav`}
                     <article style="--color: {color};">
                         <header>
                             <h2>{part}</h2>
                         </header>
-                        <audio
-                            id="part-{part}"
-                            class="part"
-                            bind:paused
-                            on:loadedmetadata={setTotalTime}>
-                            <source src={audio}>
-                        </audio>
+                        {#if index === 0}
+                            <audio
+                                id="part-{part}"
+                                class="part"
+                                bind:paused
+                                on:timeupdate={updateTime}
+                                on:loadedmetadata={setTotalTime}
+                            >
+                                <source src={audio}>
+                            </audio>
+                        {:else}
+                            <audio
+                                id="part-{part}"
+                                class="part"
+                                bind:paused
+                            >
+                                <source src={audio}>
+                            </audio>
+                        {/if}
                         <section></section>
                     </article>
                 {/each}
@@ -114,7 +148,6 @@
     }
     #mixer {
         position: relative;
-        border-radius: 5px;
         display: flex;
         flex-direction: column;
         gap: 5px;
@@ -135,7 +168,7 @@
                 border-radius: 8px;
                 border: 2px solid var(--color1);
                 background-color: var(--highlight);
-                height: 540px; /* TODO: Make thumnb height dinamic */
+                height: 540px; /* TODO: Make thumnb height dynamic */
                 width: 8px;
             }
         }
@@ -143,10 +176,18 @@
             display: flex;
             height: 100px;
             z-index: 11;
+            overflow: hidden;
 
+            &:nth-of-type(1) {
+                border-radius: 5px 5px 0 0;
+            }
+            &:last-child {
+                border-radius: 0 0 5px 5px;
+            }
             header {
                 background-color: var(--color2);
                 width: $left;
+                padding: 5px;
 
                 h2 {
                     text-transform: capitalize;

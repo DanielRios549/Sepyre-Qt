@@ -31,8 +31,11 @@
         ;
     }
     main {
+        display: flex;
+        flex-direction: column;
         grid-area: main;
         height: 100vh;
         padding: 10px;
+        gap: 10px;
     }
 </style>

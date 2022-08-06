@@ -4,7 +4,11 @@ import svg from '@poppanator/sveltekit-svg'
 import { resolve } from 'path'
 
 export default defineConfig({
-    plugins: [sveltekit(), svg()],
+    plugins: [sveltekit(), svg({
+        svgoOptions: {
+            multipass: true
+        }
+    })],
     server: {
         port: 3000
     },

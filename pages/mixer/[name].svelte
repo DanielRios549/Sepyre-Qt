@@ -45,11 +45,16 @@
         time = calculateTime(current)
     }
 
+    const changeVolume = (event: any) => {
+        const name = (event.target.id as string).split('-')[1].trim()
+        const element = document.getElementById(`part-${name}`) as HTMLMediaElement
+
+        element.volume = event.target.value / 100
+    }
+
     const updateTime = (event: any) => {
         current = event.target.currentTime || 0
         time = calculateTime(current)
-
-        console.log('Time updated...')
     }
 </script>
 
@@ -85,6 +90,15 @@
                     <article style="--color: {color};">
                         <header>
                             <h2>{part}</h2>
+                            <input
+                                type="range"
+                                name="volume-{part}"
+                                id="volume-{part}"
+                                class="volume"
+                                max="100"
+                                value={100}
+                                on:input={changeVolume}
+                            >
                         </header>
                         {#if index === 0}
                             <audio
@@ -152,7 +166,7 @@
         flex-direction: column;
         gap: 5px;
 
-        input[type="range"] {
+        #progress {
             position: absolute;
             outline: none;
             -webkit-appearance: none;
@@ -185,12 +199,42 @@
                 border-radius: 0 0 5px 5px;
             }
             header {
+                position: relative;
                 background-color: var(--color2);
                 width: $left;
                 padding: 5px;
+                display: flex;
+                justify-content: space-between;
 
                 h2 {
                     text-transform: capitalize;
+                }
+                .volume {
+                    $height: 15px;
+                    $width: 120px;
+                    outline: none;
+                    -webkit-appearance: none;
+                    background-color: transparent;
+                    position: absolute;
+                    top: 35px;
+                    left: 25px;
+                    width: $width;
+                    height: $height;
+                    transform: rotate(-90deg);
+
+                    &::-webkit-slider-runnable-track {
+                        border-radius: 20px;
+                        -webkit-appearance: none;
+                        background-color: var(--color1);
+                    }
+                    &::-webkit-slider-thumb {
+                        -webkit-appearance: none;
+                        border-radius: 8px;
+                        border: 2px solid var(--color1);
+                        background-color: var(--highlight);
+                        height: $height;
+                        width: 15px;
+                    }
                 }
             }
             section {

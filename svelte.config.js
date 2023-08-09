@@ -37,7 +37,7 @@ const config = {
             routes: 'pages'
         },
         prerender: {
-            default: true
+            entries: ['*']
         }
     }
 }

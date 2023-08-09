@@ -119,7 +119,9 @@
                                 <source src={audio}>
                             </audio>
                         {/if}
-                        <section></section>
+                        <section>
+                            <!-- <img src="audio:///{path}/__PEAKS__/{part}.png" alt="{part} peak"> -->
+                        </section>
                     </article>
                 {/each}
             </section>
@@ -240,6 +242,11 @@
             section {
                 background-color: var(--color);
                 flex-grow: 1;
+
+                img {
+                    height: 100%;
+                    width: 100%;
+                }
             }
         }
     }

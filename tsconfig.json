@@ -21,14 +21,17 @@
         }
 	},
     "include": [
+		".svelte-kit/ambient.d.ts",
+		".svelte-kit/types/**/$types.d.ts",
         "pages/**/*.svelte",
+        "pages/**/*.ts",
+        "pages/**/*.server.ts",
+        "src/**/*.svelte",
         "src/**/*.ts",
         "src/**/*.d.ts",
-        "src/**/*.svelte",
         "**/*.test.ts"
     ],
     "exclude": [
-        ".svelte-kit",
         ".venv",
         "node_modules",
         "build"
